@@ -4,15 +4,13 @@
 # Part 1
 
 def sum arr
-    arr.reduce(:+)
+    return 0 if arr.length == 0
+    arr.reduce(:+) 
 end
 
 def max_2_sum arr
-    a = arr.max
-    arr.delete(a)
-    a += arr.max if arr.length > 0
-    a = 0 if a.nil?
-    return a
+    return 0 if arr.length == 0
+    arr.max(2).reduce(:+)
 end
 
 def sum_to_n? arr, n

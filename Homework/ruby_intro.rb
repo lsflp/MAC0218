@@ -1,42 +1,22 @@
-# Nome: Luís Felipe de Melo Costa Silva
-# Número USP: 9297961
+# Nome: Leonardo de Carvalho Freitas Padilha Aguilar Número USP: 9298295
+#       Luís Felipe de Melo Costa Silva                          9297961
 
 # Part 1
 
 def sum arr
-    sum = 0
-    arr.each { |pos| sum += pos }
-    sum
+    arr.reduce(:+)
 end
 
 def max_2_sum arr
-    if arr.length == 0
-        0
-    elsif arr.length == 1
-        arr[0]
-    else 
-        larg, seclarg = [arr[0], arr[1]].min, [arr[0], arr[1]].max
-        for i in 2..arr.length-1
-            if arr[i] > larg
-                seclarg = larg
-                larg = arr[i]
-            elsif arr[i] > seclarg
-                seclarg = arr[i]
-            end
-        end
-        larg+seclarg
-    end
+    a = arr.max
+    arr.delete(a)
+    a += arr.max if arr.length > 0
+    a = 0 if a.nil?
+    return a
 end
 
 def sum_to_n? arr, n
-    for i in 0..arr.length-2
-        for j in i+1..arr.length-1
-            if arr[i]+arr[j] == n
-                return true
-            end
-        end
-    end
-    return false
+    arr.combination(2).map { |arr| arr.reduce(:+) == n }.include? true
 end
 
 # Part 2
@@ -60,9 +40,7 @@ class BookInStock
     def initialize(isbn, price)
         @isbn = isbn
         @price = price
-        if @isbn.empty? || @price <= 0
-            raise ArgumentError
-        end
+        raise ArgumentError if @isbn.empty? || @price <= 0    
     end
     # Getter
     def isbn ; @isbn ; end
